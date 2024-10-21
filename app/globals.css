@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Enter Animation (Fade down from top) */
+@keyframes fadeDownIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px); /* Starts 20px above */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Moves back to original position */
+  }
+}
+
+/* Exit Animation (Fade up and out) */
+@keyframes fadeUpOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0); /* Starts from original position */
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px); /* Moves 20px above */
+  }
+}
+
+.animate-fade-down {
+  animation: fadeDownIn 700ms ease-out forwards; /* For the enter animation */
+  animation-fill-mode: forwards;
+}
+
+.animate-fade-up {
+  animation: fadeUpOut 500ms ease-out forwards; /* For the exit animation */
+  animation-fill-mode: forwards;
+}

@@ -14,13 +14,15 @@ export default function Home() {
   useEffect(() => {
     const sections = sectionsRef.current?.querySelectorAll("section");
 
+    let activeSectionTimeout: NodeJS.Timeout | null = null; // Timeout ID for delaying activeSection update
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = Array.from(sections || []).indexOf(entry.target as HTMLElement);
             setCanvasOffset(index * -100);
-            setActiveSection(index);
+            //setActiveSection(index);
             setShowNavbar(index === 1);
             setIsBackgroundDark(index === 1);
           }
@@ -65,10 +67,15 @@ export default function Home() {
       </div>
 
       {/* Navbar */}
-      <div className={`fixed top-0 left-0 w-full z-30 transition-opacity duration-1000 ${showNavbar ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}>
+      <div
+        className={`fixed top-0 left-0 w-full z-30 transition-opacity duration-1000 ${showNavbar ? 'animate-fade-down' : 'animate-fade-up opacity-0 pointer-events-none'}`}
+        key={showNavbar ? 'navbar-visible' : 'navbar-hidden'}
+      >
         <Navbar />
       </div>
+
+
+
 
       {/* Content */}
       <div
